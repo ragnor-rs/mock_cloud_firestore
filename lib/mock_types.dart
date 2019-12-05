@@ -41,14 +41,16 @@ class MockCollectionReference extends Mock implements CollectionReference {
   }
 
   Query where(
-    dynamic field, {
-    dynamic isEqualTo,
-    dynamic isLessThan,
-    dynamic isLessThanOrEqualTo,
-    dynamic isGreaterThan,
-    dynamic isGreaterThanOrEqualTo,
-    dynamic arrayContains,
-    bool isNull,
+      dynamic field, {
+      dynamic isEqualTo,
+      dynamic isLessThan,
+      dynamic isLessThanOrEqualTo,
+      dynamic isGreaterThan,
+      dynamic isGreaterThanOrEqualTo,
+      dynamic arrayContains,
+      List<dynamic> arrayContainsAny,
+      List<dynamic> whereIn,
+      bool isNull,
   }) {
     Map<String, dynamic> data;
     List<String> conditions = [];
@@ -69,6 +71,12 @@ class MockCollectionReference extends Mock implements CollectionReference {
     }
     if (arrayContains != null) {
       conditions.add(field + " array-contains " + json.encode(arrayContains));
+    }
+    if (arrayContainsAny != null) {
+      conditions.add(field + " arrayContainsAny " + json.encode(arrayContainsAny));
+    }
+    if (arrayContainsAny != null) {
+      conditions.add(field + " in " + json.encode(whereIn));
     }
     if (isNull != null) {
       conditions.add(field + " == null");
